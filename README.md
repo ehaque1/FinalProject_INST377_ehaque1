@@ -58,7 +58,7 @@ Setup Instructions
 Clone the repository:
 
 bash
-git clone https://github.com/yourusername/coffee-explorer.git
+git clone https://github.com/ehaque1/coffee-explorer.git
 cd coffee-explorer
 Install dependencies:
 
