@@ -1,34 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>About - Coffee Explorer</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; text-align: center; }
-    img { margin-top: 20px; width: 300px; border-radius: 10px; box-shadow: 0 0 10px #999; }
-    button { padding: 10px 20px; margin-top: 20px; font-size: 16px; cursor: pointer; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Coffee App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>About Coffee Explorer</h1>
-  <p>
-    Welcome to Coffee Explorer! This web app helps coffee lovers discover random brews and explore user-submitted coffee favorites. 
-    Browse coffees from our community, submit your own, and enjoy a new cup every time you visit.
-  </p>
+  <header>
+    <h1>Superbase Coffee</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="explore.html">Explore</a>
+    </nav>
+  </header>
 
-  <h2>Here's a Random Coffee for You</h2>
-  <button id="newCoffeeBtn">Get Another Coffee</button>
-  <div>
-    <img id="randomCoffeeImg" src="https://coffee.alexflipnote.dev/random" alt="Random Coffee" />
-  </div>
+  <main>
+    <section>
+      <h2>About Our Coffee</h2>
+      <p>We source the finest beans from around the world.</p>
+      <div class="chart-container">
+        <canvas id="coffee-stats"></canvas>
+      </div>
+    </section>
+  </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const img = document.getElementById('randomCoffeeImg');
-    const btn = document.getElementById('newCoffeeBtn');
-
-    btn.addEventListener('click', () => {
-      // Force reload the image by adding a unique query string
-      img.src = 'https://coffee.alexflipnote.dev/random?' + new Date().getTime();
+    const ctx = document.getElementById('coffee-stats').getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Arabica', 'Robusta', 'Blends'],
+        datasets: [{
+          data: [60, 20, 20],
+          backgroundColor: [
+            'rgba(111, 78, 55, 0.7)',
+            'rgba(139, 90, 43, 0.7)',
+            'rgba(166, 123, 91, 0.7)'
+          ]
+        }]
+      }
     });
   </script>
 </body>
