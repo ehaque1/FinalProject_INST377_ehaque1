@@ -70,37 +70,16 @@
     const errorElement = document.getElementById('error-message');
     const successElement = document.getElementById('success-message');
 
-    // Enhanced response handler
-    async function handleResponse(response) {
-      const contentType = response.headers.get('content-type');
-      
-      if (!response.ok) {
-        let errorMsg = `HTTP error! Status: ${response.status}`;
-        
-        if (contentType && contentType.includes('application/json')) {
-          const errorData = await response.json();
-          errorMsg = errorData.error || errorData.details || errorMsg;
-        } else {
-          errorMsg = await response.text() || errorMsg;
-        }
-        
-        throw new Error(errorMsg);
-      }
-      
-      if (contentType && contentType.includes('application/json')) {
-        return response.json();
-      }
-      
-      return response.text();
-    }
-
-    // Load and display coffees
     async function loadCoffees() {
       try {
         showLoading();
         const response = await fetch(`${API_BASE}/coffees`);
-        const coffees = await handleResponse(response);
         
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const coffees = await response.json();
         const container = document.getElementById('coffee-list');
         container.innerHTML = '';
         
@@ -130,7 +109,6 @@
       }
     }
 
-    // Handle form submission
     document.getElementById('coffee-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       clearMessages();
@@ -152,7 +130,12 @@
           body: JSON.stringify(coffee)
         });
 
-        const result = await handleResponse(response);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to add coffee');
+        }
+
+        const result = await response.json();
         showSuccess(`Successfully added ${result.name}!`);
         document.getElementById('coffee-form').reset();
         loadCoffees();
@@ -162,7 +145,6 @@
       }
     });
 
-    // Helper functions
     function showLoading(message = 'Loading...') {
       clearMessages();
       successElement.textContent = message;
