@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -e '*'",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "start": "node index.js",
+  "dev": "nodemon -e '*'",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
   "author": "Eveana Haque",
   "license": "ISC",
   "description": "",
