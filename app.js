@@ -1,4 +1,4 @@
-// In your app.js or script section
+
 document.getElementById('addCoffeeForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   
