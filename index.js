@@ -9,9 +9,8 @@ const port = 3000;
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 
-// Supabase setup
-const supabaseUrl = 'https://tpajhjgyinbsuvvikcdt.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRwYWpoamd5aW5ic3V2dmlrY2R0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1MjM2MDEsImV4cCI6MjA2MzA5OTYwMX0.ymuTlarS2CErMUs_cN9oXcnYtE72Y2fpF_aNHyS0YSU';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // GET: All Coffees
